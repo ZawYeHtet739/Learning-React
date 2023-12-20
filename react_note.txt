@@ -1,6 +1,239 @@
 
-# Install React
+# Step 1 – Install create-react-app
 
 npm install create-react-app
 
 -------------------------------------------------------------------------
+
+# Step 2 – Create a React Project
+
+npx create-react-app first
+
+-------------------------------------------------------------------------
+
+# Step 3 – First React Component
+
+cd first 
+npm start
+
+-------------------------------------------------------------------------
+
+# Step 4 – JSX
+
+return "<h1>Hello React</h1>";
+
+-------------------------------------------------------------------------
+
+# Step 5 – Using Component
+
+function Item() {
+return <li>Content</li>;
+}
+export default function App() {
+return (
+<div>
+<h1>Hello React</h1>
+<ul>
+<Item />
+<Item />
+</ul>
+</div>
+);
+}
+
+-------------------------------------------------------------------------
+
+# Step 6 – props
+
+function Item(props) {
+return <li>{props.name}, ${props.price}</li>;
+}
+export default function App() {
+return (
+<div>
+<h1>Hello React</h1>
+<ul>
+<Item name="Apple" price="0.99" />
+<Item name="Orange" price="0.89" />
+</ul>
+</div>
+);
+}
+
+-------------------------------------------------------------------------
+
+Step 7 – state
+
+import { useState } from "react";
+
+function Item(prop) {
+  return <li>{prop.name}, {prop.price}</li>;
+}
+
+export default function App() {
+  const [data, setData] = useState(
+    [
+      { id: 1, name: "Apple", price: 0.99 },
+      { id: 2, name: "Orange", price: 0.89 }
+    ]
+  );
+
+  return (
+    <div>
+      <h1>Hello React</h1>
+      <ul>
+        {data.map(i => (
+          <Item name={i.name} price={i.price} />
+        ))}
+      </ul>
+    </div>
+  );
+
+
+}
+
+-------------------------------------------------------------------------
+
+# Step 8 – Changing state
+
+import { useState } from "react";
+
+function Item(prop) {
+  return <li>{prop.id}, {prop.name}, {prop.price}</li>;
+}
+
+export default function App() {
+  const [data, setData] = useState(
+    [
+      { id: 1, name: "Apple", price: 0.99 },
+      { id: 2, name: "Orange", price: 0.89 }
+    ]
+  );
+
+  const add = () => {
+    const id = data.length + 1;
+
+    setData([
+      ...data,
+      { id: id, name: `Item ${id}`, price: 0.01 + id }
+    ]);
+  }
+
+  return (
+    <div>
+      <h1>Hello React</h1>
+
+      <ul>
+        {data.map(i => (
+          <Item id={i.id} name={i.name} price={i.price} />
+        ))}
+      </ul>
+
+      <button onClick={add}>Add</button>
+    </div>
+  );
+
+
+}
+
+-------------------------------------------------------------------------
+
+# Step 9 – key Property and Virtual DOM
+
+import { useState } from "react";
+
+function Item(prop) {
+  return <li>{prop.name}, {prop.price}</li>;
+}
+
+export default function App() {
+  const [data, setData] = useState(
+    [
+      { id: 1, name: "Apple", price: 0.99 },
+      { id: 2, name: "Orange", price: 0.89 }
+    ]
+  );
+
+  const add = () => {
+    const id = data.length + 1;
+
+    setData([
+      ...data,
+      { id, name: `Item ${id}`, price: 0.01 + id }
+    ]);
+  }
+
+  return (
+    <div>
+      <h1>Hello React</h1>
+
+      <ul>
+        {data.map(i => (
+          <Item key={i.id} name={i.name} price={i.price} />
+        ))}
+      </ul>
+
+      <button onClick={add}>Add</button>
+    </div>
+  );
+
+
+}
+
+-------------------------------------------------------------------------
+
+# Step 10 – Input
+
+import { useState, useRef } from "react";
+
+function Item(prop) {
+  return (
+    <li>
+      {prop.name}, {prop.price}
+    </li>
+  );
+}
+
+export default function App() {
+  const [data, setData] = useState(
+    [
+      { id: 1, name: "Apple", price: 0.99 },
+      { id: 2, name: "Orange", price: 0.89 }
+    ]
+  );
+
+  const nameRef = useRef();
+  const priceRef = useRef();
+
+  const add = () => {
+    const id = data.length + 1;
+    const name = nameRef.current.value;
+    const price = priceRef.current.value;
+
+    setData([
+      ...data,
+      { id, name, price }
+    ]);
+  }
+
+  return (
+    <div>
+      <h1>Hello React</h1>
+
+      <ul>
+        {data.map(i => (
+          <Item key={i.id} name={i.name} price={i.price} />
+        ))}
+      </ul>
+
+      <input type="text" ref={nameRef} placeholder="Name" /> <br />
+      <input type="text" ref={priceRef} placeholder="Price" /> <br />
+
+      <button onClick={add}>Add</button>
+    </div>
+  );
+
+}
+
+-------------------------------------------------------------------------
+
